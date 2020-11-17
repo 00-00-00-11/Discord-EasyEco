@@ -1,6 +1,6 @@
 {
   "name": "discord-easyeco",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Easy economy system with mongodb",
   "main": "./index.js",
   "scripts": {
