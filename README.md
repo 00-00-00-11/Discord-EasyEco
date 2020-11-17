@@ -29,7 +29,7 @@ const eco = new Manager.EconomyManager({
 ```
 
 
-#Author: Hyro#8938<br>
-#The Developers: https://discord.gg/thedevs<br>
-#Blob Labs: https://discord.gg/fZRnshA
+# Author: Hyro#8938<br>
+# The Developers: https://discord.gg/thedevs<br>
+# Blob Labs: https://discord.gg/fZRnshA
 ====
