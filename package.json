@@ -1,0 +1,19 @@
+{
+  "name": "discord-easyeco",
+  "version": "1.0.0",
+  "description": "Easy economy system with mongodb",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Hyro#8938",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^5.10.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xHyroM/Discord-EasyEco"
+  }
+}
