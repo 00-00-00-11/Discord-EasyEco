@@ -1,6 +1,5 @@
-====
-***What is Discord-EasyEco ?***
-#Discord-EasyEco is easy mongoDb economy system :D
+***What is Discord-EasyEco ?***<br>
+## Discord-EasyEco is easy mongoDb economy system :D
 
 *Examples*
 ```js
@@ -29,7 +28,6 @@ const eco = new Manager.EconomyManager({
 ```
 
 
-### Author: Hyro#8938<br>
-### The Developers: https://discord.gg/thedevs<br>
-### Blob Labs: https://discord.gg/fZRnshA
-====
+## Author: Hyro#8938<br>
+## The Developers: https://discord.gg/thedevs<br>
+## Blob Labs: https://discord.gg/fZRnshA
