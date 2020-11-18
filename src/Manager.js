@@ -4,7 +4,7 @@ const schema = require("./Schema")
 class EconomyManager {
     /*
         * Discord-Economy Manager
-        * @param {global/server} options Options
+        * @param {db} options Options
     */
 
     constructor(options = {global: true}) {
@@ -132,6 +132,7 @@ class EconomyManager {
     async daily(userId, money) {
         if(!userId) throw new Error("Please define userId")
         if(!money) throw new Error("Please define money")
+        if(typeof money !== "number") throw new Error("Money is not number")
 
         const user = await schema.findOne({uid: userId})
         if(!user) { 
@@ -198,6 +199,7 @@ class EconomyManager {
     async work(userId, money) {
         if(!userId) throw new Error("Please define userId")
         if(!money) throw new Error("Please define money")
+        if(typeof money !== "number") throw new Error("Money is not number")
 
         const user = await schema.findOne({uid: userId})
         if(!user) { 
@@ -256,6 +258,86 @@ class EconomyManager {
             daily: user.daily,
             work: Date.now() + 2700000,
             rob: user.rob,
+            cooldown: false,
+            success: true
+        }
+    }
+
+    async rob(userId, robUserId) {
+        if(!userId) throw new Error("Please define userId")
+        if(!robUserId) throw new Error("Please define money")
+
+        const r = await schema.findOne({uid: robUserId})
+        const u = await schema.findOne({uid: userId})
+
+        if(!r) {
+            await schema.create({uid: robUserId})
+            return false;
+        }
+
+        if(r.balance < 0 || r.balance === 0) return {
+            error: 400,
+            errorMessage: "User has 0 coins"
+        }
+
+        const random = Math.floor(Math.random() * r.balance) + 0
+        if(!u) {
+            await schema.create({uid: userId, balance: random, rob: Date.now() + 60000})
+            return {
+                uid: userId,
+                balance: u.balance + random,
+                newbalance: random,
+                bank: false,
+                daily: false,
+                work: false,
+                rob: Date.now() + 60000,
+                cooldown: false,
+                success: true
+            }
+        }
+
+        let left = u.rob - Date.now();
+        let day = 24 * 60 * 60 * 1000;
+  
+        let _days = left / day;
+        let days = Math.floor(_days);
+        let _hours = (_days - days) * 24;
+        let hours = Math.floor(_hours);
+        let mins = Math.floor((_hours - hours) * 60);
+        let secs = Math.floor((_hours - hours) * (60 * 60));
+        let mills = Math.floor((_hours - hours) * ((60 * 60) * 1000));
+        let mics = Math.floor((_hours - hours) * ((60 * 60) * 1000000));
+        let nanos = Math.floor((_hours - hours) * ((60 * 60) * 1000000000));
+        let picos = Math.floor((_hours - hours) * ((60 * 60) * 1000000000000));
+
+        if(Date.now() < parseInt(u.rob)) return {
+            cooldown: true,
+            timer: {
+                days: days,
+                hours: hours,
+                mins: mins,
+                secs: secs,
+                mills: mills,
+                mics: mics,
+                nanos: nanos,
+                picos: picos
+            }
+        }
+
+        r.balance -= random
+        u.balance += random
+        u.rob = Date.now() + 60000
+        await r.save()
+        await u.save()
+
+        return {
+            uid: u.uid,
+            balance: u.balance + random,
+            newbalance: random,
+            bank: u.bank,
+            daily: u.daily,
+            work: u.work,
+            rob: Date.now() + 60000,
             cooldown: false,
             success: true
         }
