@@ -12,18 +12,21 @@ const eco = new Manager.EconomyManager({
     var fetchUser = await eco.fetchUser(1) // 1 = userId
     console.log(fetchUser) // {uid: 1, balance: 0, bank: 0, daily: 'false', work: 'false', rob: 'false'}
 
-    var fetchUser = await eco.addMoney(1, 100) // 1 = userId , 100 = add money
-    console.log(fetchUser) // {uid: 1, balance: 100, newbalance: 100, bank: 0, daily: 'false', work: 'false', rob: 'false', success: true}
+    var addMoney = await eco.addMoney(1, 100) // 1 = userId , 100 = add money
+    console.log(addMoney) // {uid: 1, balance: 100, newbalance: 100, bank: 0, daily: 'false', work: 'false', rob: 'false', success: true}
 
-    var fetchUser = await eco.subtractMoney(1, 100) // 1 = userId , 100 = subtract money
-    console.log(fetchUser) // {uid: 1, balance: 0, newbalance: 0, bank: 0, daily: 'false', work: 'false', rob: 'false', success: false} 
+    var subtractMoney = await eco.subtractMoney(1, 100) // 1 = userId , 100 = subtract money
+    console.log(subtractMoney) // {uid: 1, balance: 0, newbalance: 0, bank: 0, daily: 'false', work: 'false', rob: 'false', success: false} 
     // 0 balance? if(user.balance < money) balance = 0; success = false
 
-    var fetchUser = await eco.work(1, 100) // 1 = userId , 100 = add money
-    console.log(fetchUser) // {uid: 1, balance: 100, newbalance: 100, bank: 0, daily: 'false', work: {TIME}, rob: 'false', cooldown: false, success: true}
+    var work = await eco.work(1, 100) // 1 = userId , 100 = add money
+    console.log(work) // {uid: 1, balance: 100, newbalance: 100, bank: 0, daily: 'false', work: {TIME}, rob: 'false', cooldown: false, success: true}
 
-    var fetchUser = await eco.daily(1, 100) // 1 = userId , 100 = add money
-    console.log(fetchUser) // {uid: 1, balance: 100, newbalance: 100, bank: 0, daily: {TIME}, work: 'false', rob: 'false', cooldown: false, success: true}
+    var daily = await eco.daily(1, 100) // 1 = userId , 100 = add money
+    console.log(daily) // {uid: 1, balance: 100, newbalance: 100, bank: 0, daily: {TIME}, work: 'false', rob: 'false', cooldown: false, success: true}
+
+    var rob = await eco.rob(1, 2) // 1 = userId , 2 = robUserId
+    console.log(daily) // {uid: 1, balance: 100, newbalance: 100, bank: 0, daily: 'false', work: 'false', rob: {TIME}, cooldown: false, success: true}
 })
 ```
 
